@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.java.foodshop.mapper.ArticleMapper">
+  <resultMap id="BaseResultMap" type="com.java.foodshop.pojo.Article">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="supplier" jdbcType="VARCHAR" property="supplier" />
+    <result column="price" jdbcType="DOUBLE" property="price" />
+    <result column="discont" jdbcType="DOUBLE" property="discont" />
+    <result column="locality" jdbcType="VARCHAR" property="locality" />
+    <result column="storagy" jdbcType="INTEGER" property="storagy" />
+    <result column="image" jdbcType="VARCHAR" property="image" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
+    <result column="type_ID" jdbcType="VARCHAR" property="typeId" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+  </resultMap>
+</mapper>

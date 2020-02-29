@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.java.foodshop.mapper.OrderItemMapper">
+  <resultMap id="BaseResultMap" type="com.java.foodshop.pojo.OrderItem">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="order_id" jdbcType="INTEGER" property="orderId" />
+    <id column="article_id" jdbcType="INTEGER" property="articleId" />
+    <result column="order_num" jdbcType="INTEGER" property="orderNum" />
+  </resultMap>
+</mapper>
