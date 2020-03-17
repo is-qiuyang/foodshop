@@ -49,4 +49,8 @@ public class ArticleDao {
         example.createCriteria().andEqualTo("typeId",typeId);
         return articleMapper.selectByExample(example);
     }
+
+    public Article selectArticleById(Integer id){
+        return articleMapper.selectByPrimaryKey(id);
+    }
 }

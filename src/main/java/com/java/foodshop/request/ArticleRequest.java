@@ -50,6 +50,6 @@ public class ArticleRequest {
      * 类型ID
      */
     @Column(name = "type_ID")
-    private String typeId;
+    private Long typeId;
 
 }

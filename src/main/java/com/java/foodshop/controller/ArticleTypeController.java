@@ -2,6 +2,7 @@ package com.java.foodshop.controller;
 
 import com.java.foodshop.common.SzpJsonResult;
 import com.java.foodshop.pojo.ArticleType;
+import com.java.foodshop.request.ListIds;
 import com.java.foodshop.response.ArticleTypeResponse;
 import com.java.foodshop.service.ArticleTypeService;
 import io.swagger.annotations.ApiOperation;
@@ -13,7 +14,7 @@ import java.util.List;
 @RestController
 public class ArticleTypeController {
     @Autowired
-    ArticleTypeService articleTypeService;
+    private ArticleTypeService articleTypeService;
 
     /**
      * 方法描述
@@ -35,7 +36,8 @@ public class ArticleTypeController {
      */
     @PostMapping(value = "delete/articleType")
     @ApiOperation(value = "删除零食类")
-    public SzpJsonResult<String> delArticleType(@RequestBody List<Long> ids){
+    public SzpJsonResult<String> delArticleType(@RequestBody ListIds listIds){
+        List<Long> ids = listIds.getIds();
         Integer integer = articleTypeService.delArticleType(ids);
         if (integer>0){
             return SzpJsonResult.ok("成功删除"+integer+"个零食种类");

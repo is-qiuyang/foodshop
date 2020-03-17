@@ -70,12 +70,16 @@
              -->
             <!--<property name="rootInterface" value="com.weimob.elasticjob.dao.core.CommonMapper"/>-->
         </javaClientGenerator>
-       <table tableName="article" domainObjectName="Article">
+        <table tableName="shopcar" domainObjectName="Shopcar">
+        <!--<generatedKey column="id" sqlStatement="MySql" identity="true"/>-->
+        </table>
+        <!--
+      <table tableName="article" domainObjectName="Article">
           <generatedKey column="id" sqlStatement="MySql" identity="true"/>
       </table>
-          <table tableName="article_type" domainObjectName="ArticleType">
-               <generatedKey column="id" sqlStatement="MySql" identity="true"/>
-           </table>
+      <table tableName="article_type" domainObjectName="ArticleType">
+            <generatedKey column="id" sqlStatement="MySql" identity="true"/>
+        </table>
         <table tableName="order" domainObjectName="Order">
             <generatedKey column="id" sqlStatement="MySql" identity="true"/>
         </table>
@@ -83,12 +87,10 @@
      <table tableName="order_item" domainObjectName="OrderItem">
          <generatedKey column="id" sqlStatement="MySql" identity="true"/>
      </table>
-     <table tableName="shopcar" domainObjectName="Shopcar">
-         <generatedKey column="id" sqlStatement="MySql" identity="true"/>
-     </table>
+
         <table tableName="user" domainObjectName="User">
             <generatedKey column="id" sqlStatement="MySql" identity="true"/>
-        </table>
+        </table>-->
 
         <!--<table tableName="alarm_sms_info" domainObjectName="AlarmSmsInfo">-->
         <!--<generatedKey column="id" sqlStatement="MySql" identity="true"/>-->

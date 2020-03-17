@@ -4,24 +4,40 @@ import javax.persistence.*;
 
 @Table(name = "shopcar")
 public class Shopcar {
-    @Id
+    /**
+     * 商品数量
+     */
+    private Integer ordernum;
+
     @Column(name = "user_id")
     private Integer userId;
 
-    @Id
     @Column(name = "article_id")
     private Integer articleId;
-
-    /**
-     * 订单数量
-     */
-    private Integer ordernum;
 
     /**
      * 总价
      */
     @Column(name = "conunt_price")
-    private Long conuntPrice;
+    private Double conuntPrice;
+
+    /**
+     * 获取商品数量
+     *
+     * @return ordernum - 商品数量
+     */
+    public Integer getOrdernum() {
+        return ordernum;
+    }
+
+    /**
+     * 设置商品数量
+     *
+     * @param ordernum 商品数量
+     */
+    public void setOrdernum(Integer ordernum) {
+        this.ordernum = ordernum;
+    }
 
     /**
      * @return user_id
@@ -52,29 +68,11 @@ public class Shopcar {
     }
 
     /**
-     * 获取订单数量
-     *
-     * @return ordernum - 订单数量
-     */
-    public Integer getOrdernum() {
-        return ordernum;
-    }
-
-    /**
-     * 设置订单数量
-     *
-     * @param ordernum 订单数量
-     */
-    public void setOrdernum(Integer ordernum) {
-        this.ordernum = ordernum;
-    }
-
-    /**
      * 获取总价
      *
      * @return conunt_price - 总价
      */
-    public Long getConuntPrice() {
+    public Double getConuntPrice() {
         return conuntPrice;
     }
 
@@ -83,7 +81,7 @@ public class Shopcar {
      *
      * @param conuntPrice 总价
      */
-    public void setConuntPrice(Long conuntPrice) {
+    public void setConuntPrice(Double conuntPrice) {
         this.conuntPrice = conuntPrice;
     }
 }

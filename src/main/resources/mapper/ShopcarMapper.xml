@@ -5,9 +5,9 @@
     <!--
       WARNING - @mbg.generated
     -->
-    <id column="user_id" jdbcType="INTEGER" property="userId" />
-    <id column="article_id" jdbcType="INTEGER" property="articleId" />
     <result column="ordernum" jdbcType="INTEGER" property="ordernum" />
-    <result column="conunt_price" jdbcType="BIGINT" property="conuntPrice" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="article_id" jdbcType="INTEGER" property="articleId" />
+    <result column="conunt_price" jdbcType="DOUBLE" property="conuntPrice" />
   </resultMap>
 </mapper>

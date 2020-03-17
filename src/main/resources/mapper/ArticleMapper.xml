@@ -14,7 +14,7 @@
     <result column="storagy" jdbcType="INTEGER" property="storagy" />
     <result column="image" jdbcType="VARCHAR" property="image" />
     <result column="description" jdbcType="VARCHAR" property="description" />
-    <result column="type_ID" jdbcType="VARCHAR" property="typeId" />
+    <result column="type_ID" jdbcType="BIGINT" property="typeId" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
   </resultMap>
 </mapper>

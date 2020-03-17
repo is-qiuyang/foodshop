@@ -2,14 +2,12 @@ package com.java.foodshop.controller;
 
 import com.java.foodshop.common.SzpJsonResult;
 import com.java.foodshop.pojo.Article;
-import com.java.foodshop.request.ArticleRequest;
-import com.java.foodshop.request.SelArticleRequest;
-import com.java.foodshop.request.SelectAllArticleRequest;
-import com.java.foodshop.request.SelectArticleByTypeIdRequest;
+import com.java.foodshop.request.*;
 import com.java.foodshop.response.ArticleResponse;
 import com.java.foodshop.service.ArticleService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -19,7 +17,7 @@ import java.util.List;
 @RestController
 public class ArticleController {
     @Autowired
-    ArticleService articleService;
+    private ArticleService articleService;
 
     /**
      * 添加零食
@@ -39,8 +37,9 @@ public class ArticleController {
      * 批量删除货物
      * * @return
      */
-    @DeleteMapping("delete/articleByIds")
-    public SzpJsonResult<String> deleteAllArticle(@RequestBody List<Long> ids){
+    @PutMapping("delete/articleByIds")
+    public SzpJsonResult<String> deleteAllArticle(@RequestBody ListIds listIds){
+        List<Long> ids = listIds.getIds();
         Integer integer = articleService.deleteAllArticle(ids);
         if (integer>0){
             return SzpJsonResult.ok("成功删除"+integer+"个货物");
@@ -65,7 +64,7 @@ public class ArticleController {
      * 商品名关键字搜索
      * @return
      */
-    @GetMapping("get/Article")
+    @PostMapping("get/Article")
     public SzpJsonResult<ArticleResponse> selectArticleByKeyWords(@RequestBody SelArticleRequest request){
         return SzpJsonResult.ok(articleService.selArticle(request));
     }
@@ -76,14 +75,14 @@ public class ArticleController {
      *  Collections.shuffle()使列表顺序打乱
      * @return
      */
-    @GetMapping("select/allArticle")
+    @PostMapping("select/allArticle")
     public SzpJsonResult<ArticleResponse> selectAllArticleByRandom(@RequestBody SelectAllArticleRequest selectAllArticleRequest){
         List<Article> articles= articleService.selAllArticle(selectAllArticleRequest);
         List<ArticleResponse> articleResponses = new ArrayList<>();
         for (Article article : articles) {
-            for (ArticleResponse articleResponse : articleResponses) {
-                BeanUtils.copyProperties(article,articleResponse);
-            }
+            ArticleResponse response = new ArticleResponse();
+            BeanUtils.copyProperties(article,response);
+            articleResponses.add(response);
         }
         Collections.shuffle(articleResponses);
         return SzpJsonResult.ok(articleResponses);
@@ -93,7 +92,7 @@ public class ArticleController {
      * 分类查找
      * @return
      */
-    @GetMapping("select/articleTypeId")
+    @PostMapping("select/articleTypeId")
     public SzpJsonResult<ArticleResponse> selectArticleByKindId(@RequestBody SelectArticleByTypeIdRequest request){
         return SzpJsonResult.ok(articleService.selectArticleByTypeId(request));
     }

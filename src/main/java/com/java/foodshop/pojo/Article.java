@@ -56,7 +56,7 @@ public class Article {
      * 类型ID
      */
     @Column(name = "type_ID")
-    private String typeId;
+    private Long typeId;
 
     /**
      * 创建时间
@@ -231,7 +231,7 @@ public class Article {
      *
      * @return type_ID - 类型ID
      */
-    public String getTypeId() {
+    public Long getTypeId() {
         return typeId;
     }
 
@@ -240,8 +240,8 @@ public class Article {
      *
      * @param typeId 类型ID
      */
-    public void setTypeId(String typeId) {
-        this.typeId = typeId == null ? null : typeId.trim();
+    public void setTypeId(Long typeId) {
+        this.typeId = typeId;
     }
 
     /**

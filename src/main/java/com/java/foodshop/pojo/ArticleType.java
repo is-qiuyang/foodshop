@@ -9,7 +9,7 @@ public class ArticleType {
      */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private String id;
+    private Long id;
 
     /**
      * 商品类型名称
@@ -21,7 +21,7 @@ public class ArticleType {
      *
      * @return id - 商品类型编号
      */
-    public String getId() {
+    public Long getId() {
         return id;
     }
 
@@ -30,8 +30,8 @@ public class ArticleType {
      *
      * @param id 商品类型编号
      */
-    public void setId(String id) {
-        this.id = id == null ? null : id.trim();
+    public void setId(Long id) {
+        this.id = id;
     }
 
     /**

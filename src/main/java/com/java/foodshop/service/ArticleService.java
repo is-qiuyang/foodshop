@@ -21,4 +21,6 @@ public interface ArticleService {
     List<Article> selAllArticle(SelectAllArticleRequest selectAllArticleRequest);
 
     List<Article> selectArticleByTypeId(SelectArticleByTypeIdRequest request);
+
+    Article selectArticleById(Integer articleId);
 }

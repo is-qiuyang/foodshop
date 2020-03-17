@@ -44,8 +44,8 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     public List<Article> selArticle(SelArticleRequest request) {
+        Integer pageSize = 10;
         Integer pageNumber = request.getPageNumber();
-        Integer pageSize = request.getPageSize();
         PageHelper.startPage(pageNumber,pageSize);
         List<Article> all = articleDao.selArticle(request.getTitle());
         PageInfo<Article> pageInfo=new PageInfo<>(all);
@@ -57,8 +57,8 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     public List<Article> selAllArticle(SelectAllArticleRequest selectAllArticleRequest) {
+        Integer pageSize = 10;
         Integer pageNumber = selectAllArticleRequest.getPageNumber();
-        Integer pageSize = selectAllArticleRequest.getPageSize();
         PageHelper.startPage(pageNumber,pageSize);
         List<Article> all = articleDao.selectAllArticle();
         PageInfo<Article> pageInfo=new PageInfo<>(all);
@@ -70,8 +70,8 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     public List<Article> selectArticleByTypeId(SelectArticleByTypeIdRequest request) {
+        Integer pageSize = 10;
         Integer pageNumber = request.getPageNumber();
-        Integer pageSize = request.getPageSize();
         PageHelper.startPage(pageNumber,pageSize);
         List<Article> all = articleDao.selectArticleByTypeId(request.getTypeId());
         PageInfo<Article> pageInfo=new PageInfo<>(all);
@@ -79,5 +79,10 @@ public class ArticleServiceImpl implements ArticleService {
         log.info("pageInfo.getList()-{}",pageInfo.getList());
         log.info("pagesize-{},pageNumber-{}",pageSize,pageNumber);
         return pageInfo.getList();
+    }
+
+    @Override
+    public Article selectArticleById(Integer articleId) {
+        return articleDao.selectArticleById(articleId);
     }
 }

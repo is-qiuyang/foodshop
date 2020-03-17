@@ -3,10 +3,12 @@ package com.java.foodshop.dao;
 import com.java.foodshop.mapper.ArticleTypeMapper;
 import com.java.foodshop.pojo.ArticleType;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 import tk.mybatis.mapper.entity.Example;
 
 import java.util.List;
 
+@Repository
 public class ArticleTypeDao {
     @Autowired
     private ArticleTypeMapper articleTypeMapper;
