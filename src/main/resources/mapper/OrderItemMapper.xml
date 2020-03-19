@@ -5,8 +5,9 @@
     <!--
       WARNING - @mbg.generated
     -->
-    <id column="order_id" jdbcType="INTEGER" property="orderId" />
-    <id column="article_id" jdbcType="INTEGER" property="articleId" />
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="order_id" jdbcType="INTEGER" property="orderId" />
+    <result column="article_id" jdbcType="INTEGER" property="articleId" />
     <result column="order_num" jdbcType="INTEGER" property="orderNum" />
   </resultMap>
 </mapper>

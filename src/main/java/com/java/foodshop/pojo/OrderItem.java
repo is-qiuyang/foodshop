@@ -4,17 +4,19 @@ import javax.persistence.*;
 
 @Table(name = "order_item")
 public class OrderItem {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
+
     /**
      * 订单ID
      */
-    @Id
     @Column(name = "order_id")
     private Integer orderId;
 
     /**
      * 商品ID
      */
-    @Id
     @Column(name = "article_id")
     private Integer articleId;
 
@@ -23,6 +25,20 @@ public class OrderItem {
      */
     @Column(name = "order_num")
     private Integer orderNum;
+
+    /**
+     * @return id
+     */
+    public Integer getId() {
+        return id;
+    }
+
+    /**
+     * @param id
+     */
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
     /**
      * 获取订单ID

@@ -53,4 +53,11 @@ public class ArticleDao {
     public Article selectArticleById(Integer id){
         return articleMapper.selectByPrimaryKey(id);
     }
+
+    public List<Article> selectArticles(List<Integer> ids){
+        Example example = new Example(Article.class);
+        example.createCriteria().andIn("id",ids);
+        return articleMapper.selectByExample(example);
+
+    }
 }

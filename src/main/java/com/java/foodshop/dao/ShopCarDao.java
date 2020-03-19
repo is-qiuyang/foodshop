@@ -42,4 +42,10 @@ public class ShopCarDao {
                 .andEqualTo("articleId",articleId);
         return shopcarMapper.selectOneByExample(example);
     }
+
+    public List<Shopcar> selectShopcars(int userId, List<Integer> articleIds) {
+        Example example = new Example(Shopcar.class);
+        example.createCriteria().andEqualTo("userId",userId).andIn("articleId",articleIds);
+        return shopcarMapper.selectByExample(example);
+    }
 }
