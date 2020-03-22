@@ -5,13 +5,15 @@ import com.java.foodshop.request.AddShopCarRequest;
 import com.java.foodshop.request.DeleteShopCarRequest;
 import com.java.foodshop.response.ShowShopCarsResponse;
 import com.java.foodshop.service.ShopCarService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/shopCar")
+@RequestMapping("shopCar")
+@Slf4j
 public class ShopCarController {
 
     @Autowired
@@ -21,8 +23,9 @@ public class ShopCarController {
      * 添加商品至购物车
      * @return
      */
-    @PostMapping("/addToCar")
+    @PostMapping("addToCar")
     public SzpJsonResult<String> addShopCar(@RequestBody AddShopCarRequest request) {
+        log.info("request:userid-{},articleid-{},articlenum-{}",request.getUserId(),request.getArticleId(),request.getOrdernum());
         //根据用户信息，商品id，已存在数量来添加商品至购物车
         Integer num = shopCarService.addArticleToShopCar(request);
         if(num==1){
@@ -32,7 +35,7 @@ public class ShopCarController {
     }
 
     //展示购物车详情
-    @GetMapping("/showShopCar")
+    @GetMapping("showShopCar")
     public SzpJsonResult<List<ShowShopCarsResponse>> showShopCars(int userId) {
 
         return SzpJsonResult.ok(shopCarService.getAllShopCarByUserId(userId));
@@ -43,7 +46,7 @@ public class ShopCarController {
      * 更新购物车中商品信息，实现加减法
      * @return
      */
-    @PutMapping("/updateShopcar")
+    @PutMapping("updateShopcar")
     public SzpJsonResult<String> updateShopcar(@RequestBody AddShopCarRequest request) {
         //更新购物车中商品数量
         return SzpJsonResult.ok(shopCarService.updateShopcar(request.getUserId(),request.getArticleId(),request.getOrdernum()));
@@ -51,13 +54,13 @@ public class ShopCarController {
     }
 
     //删除购物车中商品的信息
-    @PostMapping("/deleteShopCar")
+    @PostMapping("deleteShopCar")
     public SzpJsonResult<String> deleteShopCar(@RequestBody DeleteShopCarRequest request) {
         //删除购物车中的商品
         Integer integer = shopCarService.deleteShopcar(request.getUserId(), request.getArticleIds());
 
         if (integer>0){
-            return SzpJsonResult.ok("成功删除"+integer+"个章节");
+            return SzpJsonResult.ok("成功删除"+integer+"个商品");
         }
         return SzpJsonResult.ok("删除失败");
     }

@@ -17,10 +17,13 @@ public class ArticleTypeController {
     private ArticleTypeService articleTypeService;
 
     /**
-     * 方法描述
-     * @ 添加零食类，不允许重复
-     * @return Integer
-     * @date 2020/3/13
+     * showdoc
+     * @catalog 商品类型模块
+     * @title 添加零食类
+     * @description 添加商品类不允许重复
+     * @method post
+     * @param name 必选 string 商品类型名
+     * @return_param status Integer 1添加成功，0添加失败，-1已有这个类
      */
     @PostMapping(value = "add/articleType")
     @ApiOperation(value = "添加零食类，不允许重复,1添加成功，0添加失败，-1已有这个类")

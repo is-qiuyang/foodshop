@@ -7,7 +7,8 @@ import javax.persistence.Column;
 @Data
 public class ShowShopCarsResponse {
 
-    private ShowShopCarsArticleResponse Article;
+    private ShowShopCarsArticleResponse articleResponse;
+
     /**
      * 商品数量
      */

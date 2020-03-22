@@ -4,6 +4,8 @@ import com.java.foodshop.dao.OrderItemDao;
 import com.java.foodshop.dao.ToOrderDao;
 import com.java.foodshop.pojo.OrderItem;
 import com.java.foodshop.pojo.ToOrder;
+import com.java.foodshop.response.ShowShopCarsResponse;
+import com.java.foodshop.service.ShopCarService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -20,6 +22,8 @@ class FoodshopApplicationTests {
     private com.java.foodshop.dao.OrderItemDao OrderItemDao;
     @Autowired
     private ToOrderDao toOrderDao;
+    @Autowired
+    private ShopCarService shopCarService;
 
     @Test
     public void insertToOrderItem(){
@@ -49,4 +53,11 @@ class FoodshopApplicationTests {
         int i = toOrderDao.saveToOrder(ToOrder);
         System.out.println(i);
     }
+
+    @Test
+    public void showShopCar(){
+        List<ShowShopCarsResponse> allShopCarByUserId = shopCarService.getAllShopCarByUserId(1);
+        System.out.println(allShopCarByUserId.toString());
+    }
+
 }
