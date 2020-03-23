@@ -14,12 +14,15 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.servlet.http.HttpSession;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service
 @Slf4j
@@ -35,6 +38,7 @@ public class OrderServiceImpl implements OrderService {
 
     //从购物车提交订单
     @Override
+    @Transactional
     public Integer orderSubmit(OrderItemSubmitRequest request) {
         //第一步：封装订单对象
         ToOrder toOrder = new ToOrder();
@@ -53,6 +57,23 @@ public class OrderServiceImpl implements OrderService {
         }
         //通过userId,articleIds查询出购物车里有的商品，将商品对应的orderNum,articleId添加进订单详情中去，顺便计算出所有商品的总价
         List<Shopcar> shopcars = shopCarDao.selectShopcars(request.getUserId(), articleIds);
+        //更新商品的数量
+        Map<Integer, Shopcar> articleMap = shopcars.stream().collect(Collectors.toMap(Shopcar::getArticleId,Shopcar -> Shopcar));
+        List<Article> articleList = articleDao.selectArticles(articleIds);
+        List<Article> articles = new ArrayList<>();
+        for (Article article : articleList) {
+            Article article1 = new Article();
+            Integer id = article.getId();
+            Integer articleNum = articleMap.get(id).getOrdernum();
+            Integer storagy = article.getStoragy()-articleNum;
+            if(storagy<0){
+                return 0;
+            }
+            article1.setId(id);
+            article1.setStoragy(storagy);
+            articles.add(article1);
+        }
+        Integer integer = articleDao.updataArticleNum(articles);
         List<OrderItem> orderItemList = new ArrayList<>();
         for (int i = 0; i < shopcars.size(); i++) {
             OrderItem item = new OrderItem();
@@ -75,7 +96,7 @@ public class OrderServiceImpl implements OrderService {
             orderItem.setOrderId(orderId);
         }
         Integer orderItemInt = orderItemDao.saveOrderItem(orderItemList);
-        if(orderInt>=1 && orderItemInt>=1 ){
+        if(orderInt>=1 && orderItemInt>=1 && integer>=1){
             return Math.max(orderInt,orderItemInt);
         }
         return 0;
@@ -91,6 +112,16 @@ public class OrderServiceImpl implements OrderService {
         toOrder.setToOrderCode("PO-" + sdf.format(new Date()) + request.getUserId());//设置订单编号
         //得到商品
         Article article = articleDao.selectArticleById(request.getArticleId());
+        //更新商品数量
+        List<Article> articles = new ArrayList<>();
+        Article article1 = new Article();
+        Integer id = article.getId();
+        Integer articleNum = article.getStoragy();
+        Integer storagy = articleNum-request.getOrdernum();
+        article1.setId(id);
+        article1.setStoragy(storagy);
+        articles.add(article1);
+        Integer integer = articleDao.updataArticleNum(articles);
         //定义订单总金额
         double totalPrice = article.getPrice()*article.getDiscont()*request.getOrdernum();
         toOrder.setAmount(totalPrice);
@@ -102,7 +133,7 @@ public class OrderServiceImpl implements OrderService {
         orderItem.setArticleId(request.getArticleId());
         orderItem.setOrderNum(request.getOrdernum());
         Integer orderItemInt = orderItemDao.saveOneOrderItem(orderItem);
-        if(orderInt==1 && orderItemInt==1 ){
+        if(orderInt==1 && orderItemInt==1 && integer>=1){
             return 1;
         }
         return 0;

@@ -58,6 +58,9 @@ public class ArticleDao {
         Example example = new Example(Article.class);
         example.createCriteria().andIn("id",ids);
         return articleMapper.selectByExample(example);
+    }
 
+    public Integer updataArticleNum(List<Article> articles){
+        return articleMapper.updateArticleNum(articles);
     }
 }

@@ -1,7 +1,9 @@
 package com.java.foodshop;
 
+import com.java.foodshop.dao.ArticleDao;
 import com.java.foodshop.dao.OrderItemDao;
 import com.java.foodshop.dao.ToOrderDao;
+import com.java.foodshop.pojo.Article;
 import com.java.foodshop.pojo.OrderItem;
 import com.java.foodshop.pojo.ToOrder;
 import com.java.foodshop.response.ShowShopCarsResponse;
@@ -24,6 +26,8 @@ class FoodshopApplicationTests {
     private ToOrderDao toOrderDao;
     @Autowired
     private ShopCarService shopCarService;
+    @Autowired
+    private ArticleDao articleDao;
 
     @Test
     public void insertToOrderItem(){
@@ -58,6 +62,16 @@ class FoodshopApplicationTests {
     public void showShopCar(){
         List<ShowShopCarsResponse> allShopCarByUserId = shopCarService.getAllShopCarByUserId(1);
         System.out.println(allShopCarByUserId.toString());
+    }
+
+    @Test
+    public void updataArticleNum(){
+        List<Article> articleList  = new ArrayList<>();
+        Article article1 = new Article();
+        article1.setId(28);
+        article1.setStoragy(15);
+        articleList.add(article1);
+        articleDao.updataArticleNum(articleList);
     }
 
 }

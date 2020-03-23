@@ -43,7 +43,6 @@ public class ShopCarServiceImpl implements ShopCarService {
         List<Article> articles = articleDao.selectArticles(articleIds);
         log.info("articlesSize:",articles.size());
         //将得到的数组型articles转换为map，方便后面取值
-
         Map<Integer, Article> articleMap = articles.stream().collect(Collectors.toMap(Article::getId, Article -> Article));
        log.info("articleMap:",articleMap.get(3).getDiscont());
         for (Shopcar shopcar:shopcars) {
