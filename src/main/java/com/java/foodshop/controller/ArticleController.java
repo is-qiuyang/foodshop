@@ -96,5 +96,15 @@ public class ArticleController {
     public SzpJsonResult<ArticleResponse> selectArticleByKindId(@RequestBody SelectArticleByTypeIdRequest request){
         return SzpJsonResult.ok(articleService.selectArticleByTypeId(request));
     }
-
+    
+    /**
+     * 方法描述
+     * @ 查找折扣商品
+     * @return
+     * @date 2020/3/23
+     */
+    @PostMapping("select/discountArticle")
+    public SzpJsonResult<ArticleResponse> selectdiscountArticle(){
+        return SzpJsonResult.ok(articleService.selectdiscountArticle());
+    }
 }
