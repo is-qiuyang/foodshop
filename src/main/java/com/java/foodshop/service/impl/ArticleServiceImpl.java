@@ -14,6 +14,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -26,6 +27,9 @@ public class ArticleServiceImpl implements ArticleService {
     public Integer addArticle(ArticleRequest addArticleRequest) {
         Article article = new Article();
         BeanUtils.copyProperties(addArticleRequest,article);
+        if(article.getDiscont()>1 || article.getDiscont()<0){
+            article.setDiscont((double) 1);
+        }
         article.setCreateTime(new Date());
         return articleDao.addArticle(article);
     }
@@ -84,5 +88,17 @@ public class ArticleServiceImpl implements ArticleService {
     @Override
     public Article selectArticleById(Integer articleId) {
         return articleDao.selectArticleById(articleId);
+    }
+
+    @Override
+    public List<Article> selectdiscountArticle() {
+        List<Article> articles = articleDao.selectAllArticle();
+        List<Article> articleList = new ArrayList<>();
+        for (Article article : articles) {
+            if (article.getDiscont()<1 && article.getDiscont()>0){
+                articleList.add(article);
+            }
+        }
+        return articleList;
     }
 }
