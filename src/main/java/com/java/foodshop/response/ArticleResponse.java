@@ -4,6 +4,7 @@ import lombok.Data;
 
 @Data
 public class ArticleResponse {
+    private Integer id;
     /**
      * 商品名
      */

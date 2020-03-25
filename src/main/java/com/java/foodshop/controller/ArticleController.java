@@ -4,6 +4,7 @@ import com.java.foodshop.common.SzpJsonResult;
 import com.java.foodshop.pojo.Article;
 import com.java.foodshop.request.*;
 import com.java.foodshop.response.ArticleResponse;
+import com.java.foodshop.response.ArticleResponseAndPageNum;
 import com.java.foodshop.service.ArticleService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -65,7 +66,7 @@ public class ArticleController {
      * @return
      */
     @PostMapping("get/Article")
-    public SzpJsonResult<ArticleResponse> selectArticleByKeyWords(@RequestBody SelArticleRequest request){
+    public SzpJsonResult<ArticleResponseAndPageNum> selectArticleByKeyWords(@RequestBody SelArticleRequest request){
         return SzpJsonResult.ok(articleService.selArticle(request));
     }
 
@@ -76,16 +77,10 @@ public class ArticleController {
      * @return
      */
     @PostMapping("select/allArticle")
-    public SzpJsonResult<ArticleResponse> selectAllArticleByRandom(@RequestBody SelectAllArticleRequest selectAllArticleRequest){
-        List<Article> articles= articleService.selAllArticle(selectAllArticleRequest);
-        List<ArticleResponse> articleResponses = new ArrayList<>();
-        for (Article article : articles) {
-            ArticleResponse response = new ArticleResponse();
-            BeanUtils.copyProperties(article,response);
-            articleResponses.add(response);
-        }
-        Collections.shuffle(articleResponses);
-        return SzpJsonResult.ok(articleResponses);
+    public SzpJsonResult<ArticleResponseAndPageNum> selectAllArticleByRandom(@RequestBody SelectAllArticleRequest selectAllArticleRequest){
+        ArticleResponseAndPageNum articles= articleService.selAllArticle(selectAllArticleRequest);
+        Collections.shuffle(articles.getArticleResponses());
+        return SzpJsonResult.ok(articles);
     }
 
     /**
@@ -93,7 +88,7 @@ public class ArticleController {
      * @return
      */
     @PostMapping("select/articleTypeId")
-    public SzpJsonResult<ArticleResponse> selectArticleByKindId(@RequestBody SelectArticleByTypeIdRequest request){
+    public SzpJsonResult<ArticleResponseAndPageNum> selectArticleByKindId(@RequestBody SelectArticleByTypeIdRequest request){
         return SzpJsonResult.ok(articleService.selectArticleByTypeId(request));
     }
     

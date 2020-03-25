@@ -8,6 +8,8 @@ import com.java.foodshop.request.ArticleRequest;
 import com.java.foodshop.request.SelArticleRequest;
 import com.java.foodshop.request.SelectAllArticleRequest;
 import com.java.foodshop.request.SelectArticleByTypeIdRequest;
+import com.java.foodshop.response.ArticleResponse;
+import com.java.foodshop.response.ArticleResponseAndPageNum;
 import com.java.foodshop.service.ArticleService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
@@ -47,42 +49,45 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
-    public List<Article> selArticle(SelArticleRequest request) {
+    public ArticleResponseAndPageNum selArticle(SelArticleRequest request) {
         Integer pageSize = 10;
         Integer pageNumber = request.getPageNumber();
         PageHelper.startPage(pageNumber,pageSize);
         List<Article> all = articleDao.selArticle(request.getTitle());
         PageInfo<Article> pageInfo=new PageInfo<>(all);
-        log.info("all-{}",all);
-        log.info("pageInfo.getList()-{}",pageInfo.getList());
-        log.info("pagesize-{},pageNumber-{}",pageSize,pageNumber);
-        return pageInfo.getList();
+        int pages = pageInfo.getPages();
+        List<Article> list = pageInfo.getList();
+        ArticleResponseAndPageNum articleResponseAndPageNum = articleListAndPageNum(list, pages);
+        return articleResponseAndPageNum;
     }
 
     @Override
-    public List<Article> selAllArticle(SelectAllArticleRequest selectAllArticleRequest) {
+    public ArticleResponseAndPageNum selAllArticle(SelectAllArticleRequest selectAllArticleRequest) {
         Integer pageSize = 10;
         Integer pageNumber = selectAllArticleRequest.getPageNumber();
         PageHelper.startPage(pageNumber,pageSize);
         List<Article> all = articleDao.selectAllArticle();
         PageInfo<Article> pageInfo=new PageInfo<>(all);
+        int pages = pageInfo.getPages();
+        List<Article> list = pageInfo.getList();
+        ArticleResponseAndPageNum articleResponseAndPageNum = articleListAndPageNum(list, pages);
         log.info("all-{}",all);
         log.info("pageInfo.getList()-{}",pageInfo.getList());
         log.info("pagesize-{},pageNumber-{}",pageSize,pageNumber);
-        return pageInfo.getList();
+        return articleResponseAndPageNum;
     }
 
     @Override
-    public List<Article> selectArticleByTypeId(SelectArticleByTypeIdRequest request) {
+    public ArticleResponseAndPageNum selectArticleByTypeId(SelectArticleByTypeIdRequest request) {
         Integer pageSize = 10;
         Integer pageNumber = request.getPageNumber();
         PageHelper.startPage(pageNumber,pageSize);
         List<Article> all = articleDao.selectArticleByTypeId(request.getTypeId());
         PageInfo<Article> pageInfo=new PageInfo<>(all);
-        log.info("all-{}",all);
-        log.info("pageInfo.getList()-{}",pageInfo.getList());
-        log.info("pagesize-{},pageNumber-{}",pageSize,pageNumber);
-        return pageInfo.getList();
+        int pages = pageInfo.getPages();
+        List<Article> list = pageInfo.getList();
+        ArticleResponseAndPageNum articleResponseAndPageNum = articleListAndPageNum(list, pages);
+        return articleResponseAndPageNum;
     }
 
     @Override
@@ -100,5 +105,18 @@ public class ArticleServiceImpl implements ArticleService {
             }
         }
         return articleList;
+    }
+
+    public ArticleResponseAndPageNum articleListAndPageNum(List<Article> list,Integer pages){
+        ArticleResponseAndPageNum articleResponseAndPageNum = new ArticleResponseAndPageNum();
+        List<ArticleResponse> articleResponses = new ArrayList<>();
+        for (Article article : list) {
+            ArticleResponse response = new ArticleResponse();
+            BeanUtils.copyProperties(article,response);
+            articleResponses.add(response);
+        }
+        articleResponseAndPageNum.setArticleResponses(articleResponses);
+        articleResponseAndPageNum.setPageNum(pages);
+        return articleResponseAndPageNum;
     }
 }
