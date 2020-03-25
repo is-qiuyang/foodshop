@@ -9,7 +9,7 @@ import com.java.foodshop.request.SelArticleRequest;
 import com.java.foodshop.request.SelectAllArticleRequest;
 import com.java.foodshop.request.SelectArticleByTypeIdRequest;
 import com.java.foodshop.response.ArticleResponse;
-import com.java.foodshop.response.ArticleResponseAndPageNum;
+import com.java.foodshop.response.ArticleResponseAndAllCount;
 import com.java.foodshop.service.ArticleService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
@@ -49,28 +49,28 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
-    public ArticleResponseAndPageNum selArticle(SelArticleRequest request) {
+    public ArticleResponseAndAllCount selArticle(SelArticleRequest request) {
         Integer pageSize = 10;
         Integer pageNumber = request.getPageNumber();
         PageHelper.startPage(pageNumber,pageSize);
         List<Article> all = articleDao.selArticle(request.getTitle());
         PageInfo<Article> pageInfo=new PageInfo<>(all);
-        int pages = pageInfo.getPages();
+        long allCount = pageInfo.getTotal();
         List<Article> list = pageInfo.getList();
-        ArticleResponseAndPageNum articleResponseAndPageNum = articleListAndPageNum(list, pages);
+        ArticleResponseAndAllCount articleResponseAndPageNum = articleListAndPageNum(list, allCount);
         return articleResponseAndPageNum;
     }
 
     @Override
-    public ArticleResponseAndPageNum selAllArticle(SelectAllArticleRequest selectAllArticleRequest) {
+    public ArticleResponseAndAllCount selAllArticle(SelectAllArticleRequest selectAllArticleRequest) {
         Integer pageSize = 10;
         Integer pageNumber = selectAllArticleRequest.getPageNumber();
         PageHelper.startPage(pageNumber,pageSize);
         List<Article> all = articleDao.selectAllArticle();
         PageInfo<Article> pageInfo=new PageInfo<>(all);
-        int pages = pageInfo.getPages();
+        long allCount = pageInfo.getTotal();
         List<Article> list = pageInfo.getList();
-        ArticleResponseAndPageNum articleResponseAndPageNum = articleListAndPageNum(list, pages);
+        ArticleResponseAndAllCount articleResponseAndPageNum = articleListAndPageNum(list, allCount);
         log.info("all-{}",all);
         log.info("pageInfo.getList()-{}",pageInfo.getList());
         log.info("pagesize-{},pageNumber-{}",pageSize,pageNumber);
@@ -78,15 +78,15 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
-    public ArticleResponseAndPageNum selectArticleByTypeId(SelectArticleByTypeIdRequest request) {
+    public ArticleResponseAndAllCount selectArticleByTypeId(SelectArticleByTypeIdRequest request) {
         Integer pageSize = 10;
         Integer pageNumber = request.getPageNumber();
         PageHelper.startPage(pageNumber,pageSize);
         List<Article> all = articleDao.selectArticleByTypeId(request.getTypeId());
         PageInfo<Article> pageInfo=new PageInfo<>(all);
-        int pages = pageInfo.getPages();
+        long allCount = pageInfo.getTotal();
         List<Article> list = pageInfo.getList();
-        ArticleResponseAndPageNum articleResponseAndPageNum = articleListAndPageNum(list, pages);
+        ArticleResponseAndAllCount articleResponseAndPageNum = articleListAndPageNum(list, allCount);
         return articleResponseAndPageNum;
     }
 
@@ -107,8 +107,8 @@ public class ArticleServiceImpl implements ArticleService {
         return articleList;
     }
 
-    public ArticleResponseAndPageNum articleListAndPageNum(List<Article> list,Integer pages){
-        ArticleResponseAndPageNum articleResponseAndPageNum = new ArticleResponseAndPageNum();
+    public ArticleResponseAndAllCount articleListAndPageNum(List<Article> list,Long allCount){
+        ArticleResponseAndAllCount articleResponseAndPageNum = new ArticleResponseAndAllCount();
         List<ArticleResponse> articleResponses = new ArrayList<>();
         for (Article article : list) {
             ArticleResponse response = new ArticleResponse();
@@ -116,7 +116,7 @@ public class ArticleServiceImpl implements ArticleService {
             articleResponses.add(response);
         }
         articleResponseAndPageNum.setArticleResponses(articleResponses);
-        articleResponseAndPageNum.setPageNum(pages);
+        articleResponseAndPageNum.setAllCount(allCount);
         return articleResponseAndPageNum;
     }
 }
