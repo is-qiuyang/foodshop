@@ -5,8 +5,7 @@ import com.java.foodshop.request.ArticleRequest;
 import com.java.foodshop.request.SelArticleRequest;
 import com.java.foodshop.request.SelectAllArticleRequest;
 import com.java.foodshop.request.SelectArticleByTypeIdRequest;
-import com.java.foodshop.response.ArticleResponseAndPageNum;
-
+import com.java.foodshop.response.ArticleResponseAndAllCount;
 import java.util.List;
 
 public interface ArticleService {
@@ -17,11 +16,11 @@ public interface ArticleService {
 
     Integer updateArticleById(ArticleRequest articleRequest, Long id);
 
-    ArticleResponseAndPageNum selArticle(SelArticleRequest request);
+    ArticleResponseAndAllCount selArticle(SelArticleRequest request);
 
-    ArticleResponseAndPageNum selAllArticle(SelectAllArticleRequest selectAllArticleRequest);
+    ArticleResponseAndAllCount selAllArticle(SelectAllArticleRequest selectAllArticleRequest);
 
-    ArticleResponseAndPageNum selectArticleByTypeId(SelectArticleByTypeIdRequest request);
+    ArticleResponseAndAllCount selectArticleByTypeId(SelectArticleByTypeIdRequest request);
 
     Article selectArticleById(Integer articleId);
 

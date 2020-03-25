@@ -4,7 +4,7 @@ import com.java.foodshop.common.SzpJsonResult;
 import com.java.foodshop.pojo.Article;
 import com.java.foodshop.request.*;
 import com.java.foodshop.response.ArticleResponse;
-import com.java.foodshop.response.ArticleResponseAndPageNum;
+import com.java.foodshop.response.ArticleResponseAndAllCount;
 import com.java.foodshop.service.ArticleService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -66,7 +66,7 @@ public class ArticleController {
      * @return
      */
     @PostMapping("get/Article")
-    public SzpJsonResult<ArticleResponseAndPageNum> selectArticleByKeyWords(@RequestBody SelArticleRequest request){
+    public SzpJsonResult<ArticleResponseAndAllCount> selectArticleByKeyWords(@RequestBody SelArticleRequest request){
         return SzpJsonResult.ok(articleService.selArticle(request));
     }
 
@@ -77,8 +77,8 @@ public class ArticleController {
      * @return
      */
     @PostMapping("select/allArticle")
-    public SzpJsonResult<ArticleResponseAndPageNum> selectAllArticleByRandom(@RequestBody SelectAllArticleRequest selectAllArticleRequest){
-        ArticleResponseAndPageNum articles= articleService.selAllArticle(selectAllArticleRequest);
+    public SzpJsonResult<ArticleResponseAndAllCount> selectAllArticleByRandom(@RequestBody SelectAllArticleRequest selectAllArticleRequest){
+        ArticleResponseAndAllCount articles= articleService.selAllArticle(selectAllArticleRequest);
         Collections.shuffle(articles.getArticleResponses());
         return SzpJsonResult.ok(articles);
     }
@@ -88,7 +88,7 @@ public class ArticleController {
      * @return
      */
     @PostMapping("select/articleTypeId")
-    public SzpJsonResult<ArticleResponseAndPageNum> selectArticleByKindId(@RequestBody SelectArticleByTypeIdRequest request){
+    public SzpJsonResult<ArticleResponseAndAllCount> selectArticleByKindId(@RequestBody SelectArticleByTypeIdRequest request){
         return SzpJsonResult.ok(articleService.selectArticleByTypeId(request));
     }
     
