@@ -10,8 +10,7 @@ public class AddUserRequest {
     /**
      * 登录名
      */
-    @Column(name = "login_name")
-    private String loginName;
+    private String userName;
 
     /**
      * 密码
@@ -21,7 +20,6 @@ public class AddUserRequest {
     /**
      * 昵称
      */
-    @Column(name = "nick_name")
     private String nickName;
 
     /**
@@ -32,7 +30,7 @@ public class AddUserRequest {
     /**
      * 邮箱
      */
-    private String emall;
+    private String email;
 
     /**
      * 电话
@@ -43,5 +41,9 @@ public class AddUserRequest {
      * 地址
      */
     private String address;
+
+    private String userImg;
+
+    private Integer role ;
 
 }

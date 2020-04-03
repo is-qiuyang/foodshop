@@ -1,22 +1,21 @@
-package com.java.foodshop.request;
+package com.java.foodshop.response;
 
 import lombok.Data;
 
 import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 
 @Data
-public class UpdataUserRequest {
-    private Integer id;
+public class SelectByIdPwdResponse {
     /**
-     * 密码
+     * 用户ID
      */
-    private String password;
+    @Column(name = "id")
+    private Integer user_id;
 
-    /**
-     * 昵称
-     */
     @Column(name = "nick_name")
-    private String nickName;
+    private String nick_name;
 
     /**
      * 性别(男1女2)
@@ -38,9 +37,9 @@ public class UpdataUserRequest {
      */
     private String address;
 
+
     /**
      * 用户头像
      */
     private String avatarurl;
-
 }

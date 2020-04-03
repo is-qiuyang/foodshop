@@ -1,5 +1,6 @@
 package com.java.foodshop.controller;
 
+import com.java.foodshop.annotation.UnInterception;
 import com.java.foodshop.common.SzpJsonResult;
 import com.java.foodshop.pojo.Article;
 import com.java.foodshop.request.*;
@@ -66,6 +67,7 @@ public class ArticleController {
      * @return
      */
     @PostMapping("get/Article")
+    @UnInterception
     public SzpJsonResult<ArticleResponseAndAllCount> selectArticleByKeyWords(@RequestBody SelArticleRequest request){
         return SzpJsonResult.ok(articleService.selArticle(request));
     }
@@ -77,6 +79,7 @@ public class ArticleController {
      * @return
      */
     @PostMapping("select/allArticle")
+    @UnInterception
     public SzpJsonResult<ArticleResponseAndAllCount> selectAllArticleByRandom(@RequestBody SelectAllArticleRequest selectAllArticleRequest){
         ArticleResponseAndAllCount articles= articleService.selAllArticle(selectAllArticleRequest);
         Collections.shuffle(articles.getArticleResponses());
@@ -88,6 +91,7 @@ public class ArticleController {
      * @return
      */
     @PostMapping("select/articleTypeId")
+    @UnInterception
     public SzpJsonResult<ArticleResponseAndAllCount> selectArticleByKindId(@RequestBody SelectArticleByTypeIdRequest request){
         return SzpJsonResult.ok(articleService.selectArticleByTypeId(request));
     }
@@ -99,7 +103,14 @@ public class ArticleController {
      * @date 2020/3/23
      */
     @PostMapping("select/discountArticle")
+    @UnInterception
     public SzpJsonResult<ArticleResponse> selectdiscountArticle(){
         return SzpJsonResult.ok(articleService.selectdiscountArticle());
+    }
+
+    @PostMapping("select/articleById")
+    @UnInterception
+    public SzpJsonResult<ArticleResponse> selectArticleById(@RequestBody SelectArticleByIdRequest  request){
+        return SzpJsonResult.ok(articleService.selectArticleById(request.getGoodsId()));
     }
 }

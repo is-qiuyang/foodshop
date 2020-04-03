@@ -1,5 +1,6 @@
 package com.java.foodshop.controller;
 
+import com.java.foodshop.annotation.UnInterception;
 import com.java.foodshop.common.SzpJsonResult;
 import com.java.foodshop.pojo.ArticleType;
 import com.java.foodshop.request.ListIds;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@UnInterception
 public class ArticleTypeController {
     @Autowired
     private ArticleTypeService articleTypeService;
@@ -55,6 +57,7 @@ public class ArticleTypeController {
     }
 
     @GetMapping(value = "get/all/articleType")
+    @UnInterception
     public SzpJsonResult<ArticleTypeResponse> getAllArticleType(){
         return SzpJsonResult.ok(articleTypeService.selectAllArticleType());
     }

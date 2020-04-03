@@ -37,7 +37,7 @@ public class User {
     /**
      * 邮箱
      */
-    private String emall;
+    private String email;
 
     /**
      * 电话
@@ -59,6 +59,12 @@ public class User {
      */
     @Column(name = "create_date")
     private Date createDate;
+
+    /**
+     * 用户头像
+     */
+    @Column(name = "avatarUrl")
+    private String avatarurl;
 
     /**
      * 获取用户ID
@@ -153,19 +159,19 @@ public class User {
     /**
      * 获取邮箱
      *
-     * @return emall - 邮箱
+     * @return email - 邮箱
      */
-    public String getEmall() {
-        return emall;
+    public String getEmail() {
+        return email;
     }
 
     /**
      * 设置邮箱
      *
-     * @param emall 邮箱
+     * @param email 邮箱
      */
-    public void setEmall(String emall) {
-        this.emall = emall == null ? null : emall.trim();
+    public void setEmail(String email) {
+        this.email = email == null ? null : email.trim();
     }
 
     /**
@@ -238,5 +244,23 @@ public class User {
      */
     public void setCreateDate(Date createDate) {
         this.createDate = createDate;
+    }
+
+    /**
+     * 获取用户头像
+     *
+     * @return avatarUrl - 用户头像
+     */
+    public String getAvatarurl() {
+        return avatarurl;
+    }
+
+    /**
+     * 设置用户头像
+     *
+     * @param avatarurl 用户头像
+     */
+    public void setAvatarurl(String avatarurl) {
+        this.avatarurl = avatarurl == null ? null : avatarurl.trim();
     }
 }

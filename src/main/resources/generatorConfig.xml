@@ -70,7 +70,7 @@
              -->
             <!--<property name="rootInterface" value="com.weimob.elasticjob.dao.core.CommonMapper"/>-->
         </javaClientGenerator>
-        <table tableName="order_item" domainObjectName="OrderItem">
+        <table tableName="user" domainObjectName="User">
             <generatedKey column="id" sqlStatement="MySql" identity="true"/>
         </table>
         <!--
@@ -93,9 +93,7 @@
          <generatedKey column="id" sqlStatement="MySql" identity="true"/>
      </table>
 
-        <table tableName="user" domainObjectName="User">
-            <generatedKey column="id" sqlStatement="MySql" identity="true"/>
-        </table>-->
+        -->
 
         <!--<table tableName="alarm_sms_info" domainObjectName="AlarmSmsInfo">-->
         <!--<generatedKey column="id" sqlStatement="MySql" identity="true"/>-->

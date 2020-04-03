@@ -10,10 +10,11 @@
     <result column="password" jdbcType="VARCHAR" property="password" />
     <result column="nick_name" jdbcType="VARCHAR" property="nickName" />
     <result column="sex" jdbcType="INTEGER" property="sex" />
-    <result column="emall" jdbcType="VARCHAR" property="emall" />
+    <result column="email" jdbcType="VARCHAR" property="email" />
     <result column="phone" jdbcType="VARCHAR" property="phone" />
     <result column="address" jdbcType="VARCHAR" property="address" />
     <result column="role" jdbcType="INTEGER" property="role" />
     <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
+    <result column="avatarUrl" jdbcType="VARCHAR" property="avatarurl" />
   </resultMap>
 </mapper>
