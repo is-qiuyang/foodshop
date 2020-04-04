@@ -86,8 +86,8 @@ public class ControllerInterceptor implements HandlerInterceptor {
             log.info("token Birth time is: {}", tokeBirthTime);
             Long diff = System.currentTimeMillis() - tokeBirthTime;
             log.info("token is exist : {} ms", diff);
-            //过期时限，如果还剩10s还没登录，就会报401
-            if (diff > 30000) {
+            //已经生存的时间,如果小于5分钟，就续命
+            if (diff < 60*5*1000 ) {
                 stringRedisTemplate.expire(loginname, 60*5, TimeUnit.SECONDS);
                 stringRedisTemplate.expire(token, 60*5, TimeUnit.SECONDS);
                 log.info("Reset expire time success!");
